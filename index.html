@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="tr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Raw Photoservice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0e14;--card:#141824;--line:#4a3f1c;--gold:#d4af37;--gold2:#e5a93b;--txt:#f1ede4;--mut:#9aa0ad;--wa:#25d366;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--txt);font-family:Montserrat,system-ui,sans-serif;min-height:100vh;padding-bottom:110px}
+header{display:flex;align-items:center;gap:12px;padding:16px 16px 14px;background:#10141d;position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+.logo{width:48px;height:48px;border-radius:50%;border:2px solid var(--gold);object-fit:cover}
+.brand{flex:1;min-width:0}.brand b{font-family:Cinzel,serif;font-weight:600;letter-spacing:.08em;color:var(--gold);font-size:17px;display:block}
+.brand small{color:var(--mut);letter-spacing:.14em;font-size:10px}
+.lang{display:flex;background:var(--card);border:1px solid #2c3242;border-radius:99px;padding:3px}
+.lang button{border:0;background:none;color:var(--mut);font:600 12px Montserrat;padding:7px 11px;border-radius:99px}
+.lang button.on{background:var(--gold);color:#111}
+.back{width:44px;height:44px;border-radius:50%;border:0;background:#1d2230;color:var(--txt);font-size:20px}
+.pt{font-family:Cinzel,serif;color:var(--gold);font-size:20px;flex:1}
+main{padding:16px}
+.intro{color:var(--mut);font-size:13px;margin:0 2px 14px}.intro b{display:block;color:var(--txt);font-size:16px;font-weight:500;margin-top:2px}
+.cat{position:relative;display:block;width:100%;height:170px;border-radius:22px;border:1px solid var(--line);overflow:hidden;margin-bottom:14px;text-align:left;color:var(--txt);padding:0;cursor:pointer;background:var(--card)}
+.cat .bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.cat .sh{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,14,20,.35),rgba(11,14,20,.88))}
+.cat .n{position:absolute;top:14px;left:16px;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:3px 9px;background:rgba(11,14,20,.6)}
+.cat .c{position:absolute;top:14px;right:16px;font-size:12px;border-radius:99px;padding:5px 11px;background:rgba(11,14,20,.75)}
+.cat .t{position:absolute;left:18px;right:78px;bottom:16px}
+.cat h2{font-family:Cinzel,serif;font-size:22px;font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+.cat p{font-size:12.5px;color:#d3d0c8;margin-top:4px}
+.cat .go{position:absolute;right:16px;bottom:16px;width:42px;height:42px;border-radius:50%;background:var(--gold);color:#111;display:grid;place-items:center;font-size:20px}
+.info{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:16px}
+.info p{font-size:14px}.info ul{margin:8px 0 0 16px;color:var(--mut);font-size:12.5px;line-height:1.6}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ph{position:relative;aspect-ratio:3/4;border-radius:20px;border:1px solid var(--line);overflow:hidden;background:var(--card);padding:0;color:var(--txt);text-align:left;cursor:pointer}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ph span{position:absolute;left:0;right:0;bottom:0;padding:34px 12px 12px;font-size:13.5px;background:linear-gradient(transparent,rgba(11,14,20,.92))}
+.wa{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:10px;padding:10px 20px 10px 10px;border-radius:99px;background:#0d1a14;border:1.5px solid var(--wa);color:var(--txt);text-decoration:none;font-weight:500;font-size:15px;z-index:6;box-shadow:0 6px 24px rgba(37,211,102,.18)}
+.wa i{width:38px;height:38px;border-radius:50%;background:var(--wa);display:grid;place-items:center;color:#fff;font-style:normal;font-size:18px}
+#lb{position:fixed;inset:0;background:#000;z-index:20;display:none;flex-direction:column}
+#lb.on{display:flex}
+#lb img{flex:1;min-height:0;width:100%;object-fit:contain;touch-action:pinch-zoom}
+#lb .bar{display:flex;justify-content:space-between;align-items:center;padding:calc(12px + env(safe-area-inset-top,0px)) 16px 12px;font-size:14px}
+#lb button{border:0;background:#1d2230;color:var(--txt);width:42px;height:42px;border-radius:50%;font-size:18px}
+.empty{grid-column:1/-1;color:var(--mut);font-size:13px;text-align:center;padding:30px 10px}
+</style></head><body>
+<header id="hd"></header><main id="app"></main>
+<a class="wa" id="wa" target="_blank" rel="noopener"><i>&#9993;</i><span id="wat"></span></a>
+<div id="lb"><div class="bar"><span id="lbt"></span><button onclick="lb.classList.remove('on')" aria-label="Kapat">&#10005;</button></div><img id="lbi" alt=""></div>
+<script>
+var LOGO="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCACAAIADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD5wFKKBSiqEKBT6QU4UAFLQBTgKAExRinYoxQA3FGKdijFAEdFOIptADTTSKeelNNADDSGnGkNAAKcKQU4UAOFOFNFPFACgUoFAq5p1hPfyskAUKg3SSO21I19WY8Afz7Zobtqw3KuKOBXUadp2nrEZljW6iQ4e+vXaC0U+iqvzyH2BB/2a6fw3q9nEtzLa6bYS20A8sTT2MQEsrA7VRMEgAAsSzMcAdM1jOtyq6Vy1C55h1oIr2S4trPVbAyX6aZYGOMubl7SLyyB3ZQA3tlCOT3Nef3+n2JiWVoxbROcJeWjtNbE+jKfnjPscn/ZqaeIU+g5U7HMkU0iruoWM1jKqThSrjdHIjbkkX1Vh1H8u9UzXQnfVEWsMpppxpDQIYaaaeaaaAAU4U0U4UAPFOFNFOFAF/RtOn1bUYbK1H7yQ9T0VRyWPsBzXcT6RaWmhXjs6SiyQSQWg5jkfIBeVgfnbbuOB8oAxk85xvDFzFpOkXVzNGGN0oRzjJWDzFU49yd3/fAqzd3osSsdyfMgWZVk2/8ALSJlYEj6q2R+FcdWU5Tstl+JvFJR1OXv765v5RJeSmQqNqjACovoqjhR7CuhnnntP7O0SwiElyqqSMZzPLhjx6gFF5/u1iLpzx65Hp0xBJnWLcOjAsAGHsQQfxrpLGyvtQvdVvdOtnnvbyaaOAqOIY8nzJSf4QAQgP8AtHHIrabjZdiFcyPEF+T/AMS+C4NxBE2Zp85+0yjjdn+4OQo9OepNZdle3FjMXtJSjsNrL1Dj0ZTww9jXUP4bl0wAPo9/qM5GQ8sT29uPoDh3HvlR7GogfEkLfuLZbVP+eVsI4h/46QT+JNJTjayt8ws73ZHp5gvYmtp7WS2SY5aPY3k7v78ZP+rb2PynoSOMc/rOnXGk6jNZ3a4ljI57MCMhh7Ec121h/aMjAXJ1C3m9ZmfYfo/T88VV8eQebYWjSBjd20O5nbJZozIy85/utt/76rKFVqpy9GW4Xjc4U000ppDXYYDTTTTjTTQAgp4pgpwoAeDThTBTgaAOiuzt066iH3Y7a0Ufj85/VjUNrMNSsUsJGC3UXFs7HAcf88yex5+U++PTFyGyn1OC5js0EkslpbyBSwXOz5DjPfINYk9hd2+fOtZkHqUOD+PSsIcr0vr/AMA1lda9DoNERry+00SKUvtPuYklVhgtCJAASPVCcH2I9DUXiTW7hpm0uyneHTLMmCOOM7fN2k5d8feJYseemcCoNK1toLu2muw/2i3IMV0gBkUD+FweJFxxg4OOM44qxrmiTXV1NqGhxtf2MzGUi2VmaAsclHXG4YPQ4wRjmlZKfvhvHQXwvrDC+g0/VAt7pdy4heK5UyCIscCROcqQTn5SMjIpNb8OpDfXVvYjF5bsfMsmbeSo53wt/wAtExz/AHgOx5NT+G/D91bXCatrFu9rp9ntuNs4KPcMGAVEU8nLFQT0Az3pddkN/easEcrqGmXc0sDocFoPNYsB7oTuHsW9BRzLn9xitpqcvBcTWzb7aaSJvWNip/Sule/utTtLJ7+Zp5ZLK7g3tjO1BvX64IFUb2H+1tOfU0VVvYubpFGBKv8Az1A7H+8Pfd64msvl0m1mP3YrW8c/8CxGP1YU52lZ9f8AgBG60OZpppT6U0mtzMQ0004000AIKcDTAacKAHCnCmCnA0Adf4OnMttdQRgm6ijPlqOroXUnH0IJ/wCBGrNzb3sjM8EN5DOessG5Cfrjg/z964+wu5rG7iubZ9ssZyD/ADH0I4rZu0sr+H7SFMSsfmmjXPlMf4ZUHb0devcE5rknTcZ83Rm8ZXjYsM2tQNi51prZB3kvDn/vlSW/Smtrv2UfJd32pTjo9zK6wr9I85b/AIEQP9msW8sZrMK0iq0L/cmjO6N/ow/l1rV0DT5gov8AyfMkXm2jYfKWH/LR88BFPr94jHPNaNRSuyLu9jUee5udX0vTL2d5rua5imvnc/dx92P2CIScDgFiO1c9Fqrw68dTRQ5M7TFD0dWJLKfYgkH61qw2402zv9SuJTLdlWgjcn70sgIYjucLvOfUisbTdMudQ3tCqpBH/rbiVtkUf+8x4/DqewNOHLZ9hSudjZ6edMPmW2HjSd2i3DIeIgFc+xVufqaqeM4LfRdIsrG1ky92hm2H70UBkZlVvcnH/fAPethfEVvZaFYGKIGGziEH22RcNeOp+7Ah6ADaDI3QDgBsCvPNW1G41XUZ729cvPM25j6dgB7AYA+lY0oTlO8tkXKSUbIqE000pNNNdhiIaaaUmm5oAAaUUwGnA0APBpQals7SW6WdoduIU3tk4z7D1PBOPY1MNPlNmLgSREGMzeXk7ggbaT0x1980nJIdmVQantLqW0m823co+MHuCO4I6Eexq3No00N79mkmhWQK7MSHCqEBJ5K89D0zSDSXzcB7m2TyYlm+Yt8yNjBGF/2h1weanni0OzRdsdTtQzfesmf/AFiInnW8v+9GTkfhn2ArtF1ez1iDbNf6bazKvAWTy4TgYAAYAqfbBHvXnB0+dRITtGyKOY8/wvt2/wDoQq//AMI7dm+W2Sa2kYvLGXQsVVol3OCNueB6A5rGpShLW5pGckdRrcWkB4Uk1TT7qK3X93GszeWznlnfYC7E4A2gDgD5utYd9rFkfL3q+pPF/qonj8i0h/3YlOW/EjPcGseLTZptWTToWR53cRg4ZRn/AIEAf0zU0ekNJLeRm9tUNqnmOXEi5GQOBszwWAwQKcacYqzdyXJvZFXUL651C48+8lMkmAo4ACqOiqBwoHYDiquatvp86pIx2YjgS4PP8DlQPx+YVZm0O4S6ECTW0zicWz+W5/dyHOA2QOODyMjituaKIs2ZRNNNX49NmktlkEkId42lSEsd7oM5IGMdjwTk44qK+sZLJIGmZMyoHCrnIBAI5xg8HsTT5lewWZTNJSk00mmISlBpKKAL1lqV1ZIFtZPLxIJDgfeIGBn1HXj3NNlv7iW2S2aVhboCBEpIX7xbp9Sap5pQaXKr3sO7NSTWLl7s3SiOK4IcGSMEE7gQT146npipZ31Ca6ujLteeaECYkjJUFTn65UVj5pQxznJzS5Eth8zNk3F7LawQFbceaETzMYdlXBVWPoOPyGelWjq2rXM9teTOly5eRU8wk8S7gy9eF+9j0rnt7YA3HC9OelAdgAAzYByBnoaXIg5jTkS4aaa/+zwbIXUOmCUzxjgnJzkd+9Wr+bU5ri+e4SONktkgkXssfBUAkkk/KOpJ7VhGRiSSzEk5JJ60hYnqSfxp8orm1NNqDWi2kkUCEwAGTADvEhyATnoMA+vA9Kim166kuROsdvFJ54uW8uPHmSDOC2Sc9Tx05NZRY9yfzpuaORdQ5mX49Unjt1iVYiyI0SSlP3iIc5UH05PuMnFRz38s1lHa7Y0hRt+EBGWxjJ59PTFUyaSnyoLsU0lFFMQUUUuKAEooxRigApc0mKMUALmjNJRQAuaM0lFAC5pKKMUAFFGKMUAFFFFAH//Z";
+var PHONE="905326086308";
+var T={tr:{sub:"LÜKS OTEL STÜDYOSU",tag:"Lüks otel çekim portföyü",tag2:"Özel koleksiyonlar ve zamansız anlar",ph:"Fotoğraf",wa:"Bilgi & Rezervasyon",h1:"Tam ekran görüntüleme için görsele dokunun",h2:"Ayrıntılar için iki parmakla yakınlaştırın",empty:"Bu koleksiyonun fotoğrafları yakında eklenecek.",msg:"Merhaba Raw Photoservice, otelde konaklıyorum ve çekim rezerve etmek istiyorum!"},
+en:{sub:"LUXURY HOTEL STUDIO",tag:"Editorial resort portfolio",tag2:"Curated collections & timeless moments",ph:"Photos",wa:"Info & Reservation",h1:"Tap any image for full-screen view",h2:"Pinch to zoom into fine details",empty:"Photos for this collection are coming soon.",msg:"Hello Raw Photoservice, I am staying at the hotel and would like to book a shoot!"}};
+/* Fotoğrafları eklemek için: photos listesine {src:"data:..." veya dosya, tr:"başlık", en:"title"} */
+var C=[
+{id:"sunset",n:4,col:"#e5a93b",tr:["Gün Batımı","Otelde altın saat ışıltısı ve deniz alacakaranlığı"],en:["Sunset","Golden hour glow & ocean twilight at the resort"],photos:[
+ {tr:"Sonsuzluk Terasında Altın Parıltı",en:"Golden Glow by the Infinity Terrace"},{tr:"Alacakaranlıkta Yat Silüeti",en:"Twilight Yacht Horizon"},{tr:"Kabanada Huzurlu Akşam",en:"Cabana Solitude"},{tr:"Akşam Palmiyeleri Silüeti",en:"Evening Palms Silhouette"}]},
+{id:"family",n:3,col:"#d4af37",tr:["Aile","Unutulmaz tatil anıları ve sıcacık aile bağları"],en:["Family","Heartfelt holiday memories & timeless bonds"],photos:[]},
+{id:"portraits",n:3,col:"#4a90e2",tr:["Portreler","Kişiye özel lüks editoryal portre çekimleri"],en:["Portraits","Editorial elegance & personalized luxury portraiture"],photos:[]},
+{id:"bw",n:3,col:"#9c27b0",tr:["Siyah & Beyaz","Sanatsal gölgeler, saf duygu ve derin kontrast"],en:["Black & White","Fine-art shadows, stark contrast & pure emotion"],photos:[]},
+{id:"iris",n:3,col:"#00d2d3",tr:["İris","Gözünüzün benzersiz galaksisini ortaya çıkaran makro"],en:["Iris","Macro eye art revealing your cosmic uniqueness"],photos:[]}];
+var lang=(navigator.language||"tr").toLowerCase().indexOf("en")==0?"en":"tr",cur=null;
+var $=function(i){return document.getElementById(i)};
+function toggle(){return '<div class="lang"><button class="'+(lang=="tr"?"":"on")+'" onclick="setL(\'en\')">EN</button><button class="'+(lang=="tr"?"on":"")+'" onclick="setL(\'tr\')">TR</button></div>'}
+function setL(l){lang=l;document.documentElement.lang=l;render()}
+function open_(i){cur=i;scrollTo(0,0);render()}
+function show(ci,pi){var p=C[ci].photos[pi];if(!p.src)return;$("lbi").src=p.src;$("lbt").textContent=p[lang];$("lb").classList.add("on")}
+function render(){var t=T[lang],h,m;
+ if(cur===null){
+  h='<img class="logo" src="'+LOGO+'" alt=""><div class="brand"><b>RAW PHOTOSERVICE</b><small>'+t.sub+'</small></div>'+toggle();
+  m='<div class="intro">'+t.tag+'<b>'+t.tag2+'</b></div>'+C.map(function(c,i){return '<button class="cat" onclick="open_('+i+')"><div class="bg" style="background-image:'+(c.photos[0]&&c.photos[0].src?'url('+c.photos[0].src+')':'linear-gradient(135deg,'+c.col+'55,#141824)')+'"></div><div class="sh"></div><span class="n">0'+(i+1)+'</span><span class="c">'+c.n+' '+t.ph+'</span><div class="t"><h2>'+c[lang][0]+'</h2><p>'+c[lang][1]+'</p></div><span class="go">&#8594;</span></button>'}).join("");
+ }else{var c=C[cur];
+  h='<button class="back" onclick="cur=null;render()" aria-label="Geri">&#8592;</button><span class="pt">'+c[lang][0]+'</span>'+toggle();
+  m='<div class="info"><p>'+c[lang][1]+' &nbsp;<small style="color:var(--gold)">'+c.n+' '+t.ph+'</small></p><ul><li>'+t.h1+'</li><li>'+t.h2+'</li></ul></div><div class="grid">'+
+  c.photos.map(function(p,j){return '<button class="ph" onclick="show('+cur+','+j+')">'+(p.src?'<img loading="lazy" src="'+p.src+'" alt="">':'')+'<span>'+p[lang]+'</span></button>'}).join("")+'</div>';
+ }
+ $("hd").innerHTML=h;$("app").innerHTML=m;$("wat").textContent=t.wa;$("wa").href="https://wa.me/"+PHONE+"?text="+encodeURIComponent(t.msg);
+}
+render();
+</script></body></html>
